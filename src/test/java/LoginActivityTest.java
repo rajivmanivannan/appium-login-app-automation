@@ -29,9 +29,12 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void add_plant_test() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-
+    public void login_test() {
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+        driver.findElement(By.name("Email")).sendKeys("Rajiv");
+        driver.findElement(By.name("Password")).sendKeys("Welcome@123");
+        driver.hideKeyboard(); //Hide keyboard
+        driver.findElement(By.className("android.widget.Button")).click();
     }
 
     @AfterTest
