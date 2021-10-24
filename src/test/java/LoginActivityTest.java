@@ -17,7 +17,7 @@ import java.util.List;
 
 public class LoginActivityTest {
 
-    private AppiumDriver driver;
+    private AndroidDriver driver;
     private WebDriverWait webDriverWait;
 
     @BeforeTest
