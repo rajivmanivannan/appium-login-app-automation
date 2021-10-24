@@ -36,7 +36,6 @@ public class LoginActivityTest {
     @Test(description = "Verify that a user cannot login to the application with invalid credentials")
     public void testInvalidLogin() {
         login("Bob","123");
-        //Assert.assertEquals(loginPage.getAttemptsCounterLabelText(), "Number of attempts remaining: 4");
     }
 
 
@@ -57,6 +56,7 @@ public class LoginActivityTest {
         By signInButton = By.id("login");
         driver.findElement(signInButton).click();
     }
+
 
     @AfterTest
     public void tearDown() {
