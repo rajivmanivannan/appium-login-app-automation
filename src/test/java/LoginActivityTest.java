@@ -49,12 +49,9 @@ public class LoginActivityTest {
 
 
     public void login(String username, String password) {
-        By usernameEditText = By.id("username");
-        driver.findElement(usernameEditText).sendKeys(username);
-        By passwordEditText = By.id("password");
-        driver.findElement(passwordEditText).sendKeys(password);
-        By signInButton = By.id("login");
-        driver.findElement(signInButton).click();
+        driver.findElementByAccessibilityId("username").sendKeys(username);
+        driver.findElementByAccessibilityId("password").sendKeys(username);
+        driver.findElementByName("Sign in or register").click();
     }
 
 
