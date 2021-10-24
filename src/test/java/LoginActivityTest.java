@@ -20,14 +20,6 @@ public class LoginActivityTest {
     private AppiumDriver driver;
     private WebDriverWait webDriverWait;
 
-    @AndroidFindBy(id = "com.rm.loginapp:id/username")
-    MobileElement usernameEditText;
-    @AndroidFindBy(id = "com.rm.loginapp:id/password")
-    MobileElement passwordEditText;
-    @AndroidFindBy(id = "com.rm.loginapp:id/login")
-    MobileElement signInButton;
-
-
     @BeforeTest
     public void setUp() throws MalformedURLException {
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -58,9 +50,12 @@ public class LoginActivityTest {
 
 
     public void login(String username, String password) {
-        usernameEditText.sendKeys(username);
-        passwordEditText.sendKeys(password);
-        signInButton.click();
+        By usernameEditText = By.id("username");
+        driver.findElement(usernameEditText).sendKeys(username);
+        By passwordEditText = By.id("password");
+        driver.findElement(passwordEditText).sendKeys(password);
+        By signInButton = By.id("login");
+        driver.findElement(signInButton).click();
     }
 
     @AfterTest
