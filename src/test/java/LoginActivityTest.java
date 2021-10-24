@@ -18,7 +18,7 @@ import java.util.List;
 public class LoginActivityTest {
 
     private AppiumDriver driver;
-    private WebDriverWait webDriverWait;
+
 
     @BeforeTest
     public void setUp() throws MalformedURLException {
@@ -28,21 +28,20 @@ public class LoginActivityTest {
         caps.setCapability("platformVersion", "9");
         caps.setCapability("deviceName", "Android Emulator");
         caps.setCapability("app", System.getenv("BITRISE_APK_PATH"));
-        driver = new AppiumDriver(new URL("http://localhost:4723/wd/hub"), caps);
-        webDriverWait = new WebDriverWait(driver, 15);
+        driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
     }
 
 
     @Test(description = "Verify that a user cannot login to the application with invalid credentials")
     public void testInvalidLogin() {
-        login("Bob","123");
+        login("Bob", "123");
     }
 
 
     @Test(description = "Verify that a user can login to the application with valid credentials")
     public void testValidLogin() {
         login("Bob", "Welcome@123");
-       // webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/hierarchy/android.widget.Toast")));
+        // webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/hierarchy/android.widget.Toast")));
         String toastMessage = driver.findElement(By.xpath("//android.widget.Toast[1]")).getText();
         Assert.assertEquals(toastMessage, "Welcome!" + "Bob");
     }
