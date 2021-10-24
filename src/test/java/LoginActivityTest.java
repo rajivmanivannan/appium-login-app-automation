@@ -15,7 +15,12 @@ import java.net.URL;
 import java.util.List;
 
 public class LoginActivityTest {
-    AppiumDriver driver;
+    private AppiumDriver driver;
+    private WebDriverWait webDriverWait;
+
+    private final By usernameEditText = By.id("com.rm.loginapp:id/username");
+    private final By passwordEditText = By.id("com.rm.loginapp:id/password");
+    private final By signInButton = By.id("com.rm.loginapp:id/login");
 
     @BeforeTest
     public void setUp() throws MalformedURLException {
@@ -26,15 +31,22 @@ public class LoginActivityTest {
         caps.setCapability("deviceName", "Android Emulator");
         caps.setCapability("app", System.getenv("BITRISE_APK_PATH"));
         driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
+        webDriverWait = new WebDriverWait(driver, 15);
     }
 
-    @Test
-    public void login_test() {
-        WebDriverWait wait = new WebDriverWait(driver, 15);
-        driver.findElement(By.name("Email")).sendKeys("rajiv@rm.com");
-        driver.findElement(By.name("Password")).sendKeys("Welcome@123");
-        driver.hideKeyboard(); //Hide keyboard
-        driver.findElement(By.className("android.widget.Button")).click();
+
+    @Test(description = "Verify that a user can login to the application with valid credentials")
+    public void testValidLogin() {
+        login("Bob", "Welcome@123");
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/hierarchy/android.widget.Toast")));
+        String toastMessage = driver.findElement(By.xpath("/hierarchy/android.widget.Toast")).getText();
+        Assert.assertEquals(toastMessage, "Welcome!" + "Bob");
+    }
+
+    public void login(String username, String password) {
+        driver.findElement(usernameEditText).sendKeys(username);
+        driver.findElement(passwordEditText).sendKeys(password);
+        driver.findElement(signInButton).click();
     }
 
     @AfterTest
