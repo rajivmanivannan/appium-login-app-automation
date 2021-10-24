@@ -42,8 +42,8 @@ public class LoginActivityTest {
     @Test(description = "Verify that a user can login to the application with valid credentials")
     public void testValidLogin() {
         login("Bob", "Welcome@123");
-        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/hierarchy/android.widget.Toast")));
-        String toastMessage = driver.findElement(By.xpath("/hierarchy/android.widget.Toast")).getText();
+       // webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/hierarchy/android.widget.Toast")));
+        String toastMessage = driver.findElement(By.xpath("//android.widget.Toast[1]")).getText();
         Assert.assertEquals(toastMessage, "Welcome!" + "Bob");
     }
 
