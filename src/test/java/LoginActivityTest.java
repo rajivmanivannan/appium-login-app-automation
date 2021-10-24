@@ -17,7 +17,7 @@ import java.util.List;
 
 public class LoginActivityTest {
 
-    private AndroidDriver driver;
+    private AppiumDriver driver;
     private WebDriverWait webDriverWait;
 
     @BeforeTest
@@ -28,7 +28,7 @@ public class LoginActivityTest {
         caps.setCapability("platformVersion", "9");
         caps.setCapability("deviceName", "Android Emulator");
         caps.setCapability("app", System.getenv("BITRISE_APK_PATH"));
-        driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
+        driver = new AppiumDriver(new URL("http://localhost:4723/wd/hub"), caps);
         webDriverWait = new WebDriverWait(driver, 15);
     }
 
@@ -49,9 +49,9 @@ public class LoginActivityTest {
 
 
     public void login(String username, String password) {
-        driver.findElementByAccessibilityId("username").sendKeys(username);
-        driver.findElementByAccessibilityId("password").sendKeys(username);
-        driver.findElementByName("Sign in or register").click();
+        driver.findElement(By.id("username")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(username);
+        driver.findElement(By.id("login")).click();
     }
 
 
