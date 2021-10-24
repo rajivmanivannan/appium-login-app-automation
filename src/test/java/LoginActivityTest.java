@@ -1,6 +1,7 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,12 +16,17 @@ import java.net.URL;
 import java.util.List;
 
 public class LoginActivityTest {
+
     private AppiumDriver driver;
     private WebDriverWait webDriverWait;
 
-    private final By usernameEditText = By.id("com.rm.loginapp:id/username");
-    private final By passwordEditText = By.id("com.rm.loginapp:id/password");
-    private final By signInButton = By.id("com.rm.loginapp:id/login");
+    @AndroidFindBy(id = "com.rm.loginapp:id/username")
+    MobileElement usernameEditText;
+    @AndroidFindBy(id = "com.rm.loginapp:id/password")
+    MobileElement passwordEditText;
+    @AndroidFindBy(id = "com.rm.loginapp:id/login")
+    MobileElement signInButton;
+
 
     @BeforeTest
     public void setUp() throws MalformedURLException {
@@ -35,6 +41,13 @@ public class LoginActivityTest {
     }
 
 
+    @Test(description = "Verify that a user cannot login to the application with invalid credentials")
+    public void testInvalidLogin() {
+        login("Bob","123");
+        //Assert.assertEquals(loginPage.getAttemptsCounterLabelText(), "Number of attempts remaining: 4");
+    }
+
+
     @Test(description = "Verify that a user can login to the application with valid credentials")
     public void testValidLogin() {
         login("Bob", "Welcome@123");
@@ -43,10 +56,11 @@ public class LoginActivityTest {
         Assert.assertEquals(toastMessage, "Welcome!" + "Bob");
     }
 
+
     public void login(String username, String password) {
-        driver.findElement(usernameEditText).sendKeys(username);
-        driver.findElement(passwordEditText).sendKeys(password);
-        driver.findElement(signInButton).click();
+        usernameEditText.sendKeys(username);
+        passwordEditText.sendKeys(password);
+        signInButton.click();
     }
 
     @AfterTest
