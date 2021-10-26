@@ -38,14 +38,13 @@ public class LoginActivityTest {
             caps.setCapability("deviceName", "Android Emulator");
             caps.setCapability("app", System.getenv("BITRISE_APK_PATH"));
         }
-        driver = new AndroidDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"), caps);
+        driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), caps);
         driver.manage().timeouts().implicitlyWait(15, SECONDS);
     }
 
     @Test(description = "Verify that a user cannot login to the application with invalid credentials")
     public void testInvalidLogin() {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage = new LoginPage(driver);
         loginPage.login("Bob", "123");
     }
 
