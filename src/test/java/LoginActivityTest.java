@@ -16,7 +16,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class LoginActivityTest {
 
     private final DesiredCapabilities caps = new DesiredCapabilities();
-    private final boolean enableLocalServerCapabilities = true;
+    private final boolean enableLocalServerCapabilities = false;
     private AppiumDriver<MobileElement> driver;
     private LoginPage loginPage;
 
