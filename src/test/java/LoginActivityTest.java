@@ -5,7 +5,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -15,14 +14,13 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class LoginActivityTest {
 
-    private final DesiredCapabilities caps = new DesiredCapabilities();
+
     private final boolean enableLocalServerCapabilities = false;
     private AppiumDriver<MobileElement> driver;
-    private LoginPage loginPage;
-
 
     @BeforeSuite
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
+        final DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", "android");
         caps.setCapability("automationName", "UiAutomator2");
         caps.setCapability("noReset", true);
@@ -40,24 +38,21 @@ public class LoginActivityTest {
             caps.setCapability("deviceName", "Android Emulator");
             caps.setCapability("app", System.getenv("BITRISE_APK_PATH"));
         }
-    }
-
-    @BeforeTest
-    public void setDriver() throws MalformedURLException {
         driver = new AndroidDriver<MobileElement>(new URL("http://localhost:4723/wd/hub"), caps);
         driver.manage().timeouts().implicitlyWait(15, SECONDS);
-        loginPage = new LoginPage(driver);
     }
-
 
     @Test(description = "Verify that a user cannot login to the application with invalid credentials")
     public void testInvalidLogin() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(driver);
         loginPage.login("Bob", "123");
     }
 
 
     @Test(description = "Verify that a user can login to the application with valid credentials")
     public void testValidLogin() {
+        LoginPage loginPage = new LoginPage(driver);
         loginPage.login("Bob", "Welcome@123");
         HomePage homePage = new HomePage(driver);
         Assert.assertEquals(homePage.getSuccessLabelText(), "Login Success");
