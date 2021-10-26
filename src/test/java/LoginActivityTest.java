@@ -35,6 +35,7 @@ public class LoginActivityTest {
             caps.setCapability("app", "/Users/rajivmanivannan/Documents/Appium/LoginApp/app-debug.apk");
         } else {
             //Bitrise Config
+            caps.setCapability("uiautomator2ServerLaunchTimeout", 90000);
             caps.setCapability("platformVersion", "9");
             caps.setCapability("deviceName", "Android Emulator");
             caps.setCapability("app", System.getenv("BITRISE_APK_PATH"));
